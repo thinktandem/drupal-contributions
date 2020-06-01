@@ -1,0 +1,42 @@
+name: drupal-contributions
+recipe: drupal8
+config:
+  webroot: web
+
+tooling:
+  drush:
+    service: appserver
+    cmd:
+      drush --uri=https://drupal-contributions.lndo.site
+  si:
+    service: appserver
+    description: Install Drupal
+    cmd:
+      - drush si --db-url=mysql://drupal8:drupal8@database/drupal8 -y
+  patch:
+    service: appserver
+    description: Get a patch from a Drupal project issue queue
+    cmd:
+      - wget :url |git apply -v
+    options:
+      url:
+        describe: The url of the patch from the issue queue
+    apply:
+      service: appserver
+      description: Apply a patch from a Drupal project issue queue
+      cmd:
+        - git apply -v /app/:path
+      path:
+        describe: The path to the patch to apply; i.e. DESCRIPTION-XXXXXXX-YY.patch
+    reverse:
+      service: appserver
+      description: Apply a patch from a Drupal project issue queue
+      cmd:
+        - git apply -R :path
+      path:
+        describe: The path to the patch to reverse; i.e. DESCRIPTION-XXXXXXX-YY.patch
+
+events:
+  post-destroy:
+    - rm -rfv web
+

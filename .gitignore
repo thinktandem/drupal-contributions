@@ -1,0 +1,5 @@
+vendor
+node_modules
+*.sql
+*.sql.gz
+*.gz

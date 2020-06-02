@@ -3,16 +3,23 @@ recipe: drupal8
 config:
   webroot: web
 
+services:
+  appserver:
+    run:
+      - cd /app/web && composer install
+
 tooling:
   drush:
     service: appserver
     cmd:
-      drush --uri=https://drupal-contributions.lndo.site
+      drush --root=/app/web --uri=https://drupal-contributions.lndo.site
   si:
     service: appserver
     description: Install Drupal
     cmd:
-      - drush si --db-url=mysql://drupal8:drupal8@database/drupal8 -y
+      - drush --root=/app/web si --db-url=mysql://drupal8:drupal8@database/drupal8 -y
+      - chmod -R 777 /app/web/sites/default
+      - drush --root=/app/web --uri=https://drupal-contributions.lndo.site uli
   patch:
     service: appserver
     description: Get a patch from a Drupal project issue queue
@@ -21,22 +28,34 @@ tooling:
     options:
       url:
         describe: The url of the patch from the issue queue
-    apply:
+  apply:
+    service: appserver
+    description: Apply a patch from a Drupal project issue queue
+    cmd:
+      - git apply -v /app/:path
+    path:
+      describe: The path to the patch to apply; i.e. DESCRIPTION-XXXXXXX-YY.patch
+  reverse:
+    service: appserver
+    description: Apply a patch from a Drupal project issue queue
+    cmd:
+      - git apply -R :path
+    path:
+      describe: The path to the patch to reverse; i.e. DESCRIPTION-XXXXXXX-YY.patch
+  test:
       service: appserver
-      description: Apply a patch from a Drupal project issue queue
       cmd:
-        - git apply -v /app/:path
-      path:
-        describe: The path to the patch to apply; i.e. DESCRIPTION-XXXXXXX-YY.patch
-    reverse:
-      service: appserver
-      description: Apply a patch from a Drupal project issue queue
-      cmd:
-        - git apply -R :path
-      path:
-        describe: The path to the patch to reverse; i.e. DESCRIPTION-XXXXXXX-YY.patch
+        - /app/web/core/scripts/run-tests.sh --url https://drupal-contributions.lndo.site --color --verbose
 
 events:
   post-destroy:
     - rm -rfv web
-
+  pre-start:
+    - appserver: php /app/scripts/get-drupal.php
+  post-start:
+    - appserver: drush --root=/app/web si --db-url=mysql://drupal8:drupal8@database/drupal8 -y
+    - appserver: chmod -R 777 /app/web/sites/default
+    - appserver: drush --root=/app/web --uri=https://drupal-contributions.lndo.site uli
+    - appserver: echo "vendor" >> /app/web/.gitignore
+    - appserver: echo "sites/default/files" >> /app/web/.gitignore
+    - appserver: echo "sites/default/settings.php" >> /app/web/.gitignore

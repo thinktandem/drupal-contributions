@@ -19,7 +19,7 @@ elseif ($url === '--revert') {
   revertPatch($patch);
 }
 elseif ($url === '--create-patch') {
-
+  createPatch();
 }
 
 /**
@@ -35,7 +35,10 @@ function getPatch($url) {
 }
 
 /**
+ * Move the patch into drupal root.
  *
+ * @param string $patchName
+ *   The name of the patch.
  */
 function movePatch($patchName) {
   exec(
@@ -43,6 +46,12 @@ function movePatch($patchName) {
   );
 }
 
+/**
+ * Apply a patch.
+ *
+ * @param string $patchName
+ *   The name of the patch to apply.
+ */
 function applyPatch($patchName) {
   exec(
     "cd /app/web &&
@@ -50,9 +59,28 @@ function applyPatch($patchName) {
   );
 }
 
+/**
+ * Revert a patch.
+ *
+ * @param string $patchName
+ *   The name of the patch to revert.
+ */
 function revertPatch($patchName) {
   exec(
     "cd /app/web &&
     git apply -Rv $patchName"
+  );
+}
+
+/**
+ * Create a patch from the committed changes on your local branch.
+ */
+function createPatch() {
+  exec("cd /app/web && git symbolic-ref HEAD", $output);
+  $branch = explode('/', $output[0]);
+  $branch = end($branch);
+  exec(
+    "cd /app/web &&
+    git diff 8.8.x > $branch.patch"
   );
 }

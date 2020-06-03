@@ -18,6 +18,9 @@ elseif ($url === '--revert') {
   $patch = $argv[2];
   revertPatch($patch);
 }
+elseif ($url === '--create-patch') {
+
+}
 
 /**
  * Get a patch from drupal.org issue.

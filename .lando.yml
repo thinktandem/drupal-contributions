@@ -32,7 +32,7 @@ tooling:
     service: appserver
     description: Apply a patch from a Drupal project issue queue
     cmd:
-      - appserver: php /app/scripts/patch-helpers.php --revert :patch
+      - appserver: php /app/scripts/patch-helpers.php --revert
     patch:
       describe: The name of the patch to revert; i.e. DESCRIPTION-XXXXXXX-YY.patch
   test:

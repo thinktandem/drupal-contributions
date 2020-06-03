@@ -28,20 +28,13 @@ tooling:
     options:
       url:
         describe: The url of the patch from the issue queue
-  apply:
-    service: appserver
-    description: Apply a patch from a Drupal project issue queue
-    cmd:
-      - git apply -v /app/:path
-    path:
-      describe: The path to the patch to apply; i.e. DESCRIPTION-XXXXXXX-YY.patch
   revert:
     service: appserver
     description: Apply a patch from a Drupal project issue queue
     cmd:
       - appserver: php /app/scripts/patch-helpers.php --revert :patch
-    path:
-      describe: The path to the patch to reverse; i.e. DESCRIPTION-XXXXXXX-YY.patch
+    patch:
+      describe: The name of the patch to revert; i.e. DESCRIPTION-XXXXXXX-YY.patch
   test:
       service: appserver
       cmd:
@@ -59,5 +52,6 @@ events:
     - appserver: chmod -R 777 /app/web/sites/default
     - appserver: drush --root=/app/web --uri=https://drupal-contributions.lndo.site uli
     - appserver: echo "vendor" >> /app/web/.gitignore
+    - appserver: echo ".gitignore\nsites/simpletest" >> /app/web/.gitignore
     - appserver: echo "sites/default/files" >> /app/web/.gitignore
     - appserver: echo "sites/default/settings.php" >> /app/web/.gitignore

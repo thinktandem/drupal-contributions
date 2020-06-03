@@ -35,6 +35,12 @@ tooling:
       - appserver: php /app/scripts/patch-helpers.php --revert
     patch:
       describe: The name of the patch to revert; i.e. DESCRIPTION-XXXXXXX-YY.patch
+  create-patch:
+    service: appserver
+    description: Creat a patch from your committed changes on your branch.
+    cmd:
+      - appserver: php /app/scripts/patch-helpers.php --create-patch
+
   test:
       service: appserver
       cmd:

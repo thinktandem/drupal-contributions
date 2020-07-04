@@ -4,6 +4,9 @@
  * @file
  * Get, apply, and revert patches.
  */
+
+include '/app/config/drupal-branch.php';
+
 switch ($argv[1]) {
   case '--revert':
     $patch = $argv[2];
@@ -64,13 +67,14 @@ function revertPatch($patchName) {
  * Create a patch from the committed changes on your local branch.
  */
 function createPatch() {
+  global $drupalBranch;
   exec("git -C /app/web symbolic-ref HEAD", $output);
   $branch = explode('/', $output[0]);
   $branch = end($branch);
   exec(
     "cd /app/web &&
     git add -A . &&
-    git diff --cached 8.8.x > /app/$branch.patch &&
+    git diff --cached $drupalBranch > /app/$branch.patch &&
     git reset HEAD"
   );
 }

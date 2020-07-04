@@ -68,6 +68,9 @@ function createPatch() {
   $branch = explode('/', $output[0]);
   $branch = end($branch);
   exec(
-    "git -C /app/web diff 8.8.x > /app/$branch.patch"
+    "cd /app/web &&
+    git add -A . &&
+    git diff --cached 8.8.x > /app/$branch.patch &&
+    git reset HEAD"
   );
 }

@@ -20,7 +20,6 @@ switch ($argv[1]) {
       $urlParts = explode('/', $url);
       $patchName = end($urlParts);
       getPatch($url);
-      movePatch($patchName);
       applyPatch($patchName);
     }
 }
@@ -33,19 +32,7 @@ switch ($argv[1]) {
  */
 function getPatch($url) {
   exec(
-    "wget $url"
-  );
-}
-
-/**
- * Move the patch into drupal root.
- *
- * @param string $patchName
- *   The name of the patch.
- */
-function movePatch($patchName) {
-  exec(
-    "mv $patchName web/"
+    "wget -P /app $url"
   );
 }
 
@@ -57,7 +44,7 @@ function movePatch($patchName) {
  */
 function applyPatch($patchName) {
   exec(
-    "git -C /app/web apply -v $patchName"
+    "git -C /app/web apply -v /app/$patchName"
   );
 }
 
@@ -69,7 +56,7 @@ function applyPatch($patchName) {
  */
 function revertPatch($patchName) {
   exec(
-    "git -C /app/web apply -Rv $patchName"
+    "git -C /app/web apply -Rv /app/$patchName"
   );
 }
 
@@ -81,6 +68,6 @@ function createPatch() {
   $branch = explode('/', $output[0]);
   $branch = end($branch);
   exec(
-    "git -C /app/web diff 8.8.x > $branch.patch"
+    "git -C /app/web diff 8.8.x > /app/$branch.patch"
   );
 }

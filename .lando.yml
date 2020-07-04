@@ -38,6 +38,11 @@ tooling:
     description: Creat a patch from your committed changes on your branch.
     cmd:
       - appserver: php /app/scripts/patch-helpers.php --create-patch
+  phpunit:
+    service: appserver
+    user: www-data
+    cmd:
+      - appserver: /app/web/vendor/bin/phpunit -c /app/config
 
   test:
       service: appserver

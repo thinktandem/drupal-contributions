@@ -4,20 +4,25 @@
  * @file
  * Get, apply, and revert patches.
  */
-$url = $argv[1];
-$urlParts = explode('/', $url);
-$patchName = end($urlParts);
-if (strpos($url, 'https') !== FALSE) {
-  getPatch($url);
-  movePatch($patchName);
-  applyPatch($patchName);
-}
-elseif ($url === '--revert') {
-  $patch = $argv[2];
-  revertPatch($patch);
-}
-elseif ($url === '--create-patch') {
-  createPatch();
+switch ($argv[1]) {
+  case '--revert':
+    $patch = $argv[2];
+    revertPatch($patch);
+    break;
+
+  case '--create-patch':
+    createPatch();
+    break;
+
+  default:
+    $url = $argv[1];
+    if (strpos($url, 'https') !== FALSE) {
+      $urlParts = explode('/', $url);
+      $patchName = end($urlParts);
+      getPatch($url);
+      movePatch($patchName);
+      applyPatch($patchName);
+    }
 }
 
 /**

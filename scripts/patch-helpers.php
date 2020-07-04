@@ -57,8 +57,7 @@ function movePatch($patchName) {
  */
 function applyPatch($patchName) {
   exec(
-    "cd /app/web &&
-    git apply -v $patchName"
+    "git -C /app/web apply -v $patchName"
   );
 }
 
@@ -70,8 +69,7 @@ function applyPatch($patchName) {
  */
 function revertPatch($patchName) {
   exec(
-    "cd /app/web &&
-    git apply -Rv $patchName"
+    "git -C /app/web apply -Rv $patchName"
   );
 }
 
@@ -79,11 +77,10 @@ function revertPatch($patchName) {
  * Create a patch from the committed changes on your local branch.
  */
 function createPatch() {
-  exec("cd /app/web && git symbolic-ref HEAD", $output);
+  exec("git -C /app/web symbolic-ref HEAD", $output);
   $branch = explode('/', $output[0]);
   $branch = end($branch);
   exec(
-    "cd /app/web &&
-    git diff 8.8.x > $branch.patch"
+    "git -C /app/web diff 8.8.x > $branch.patch"
   );
 }

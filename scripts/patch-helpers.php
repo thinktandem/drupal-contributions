@@ -4,11 +4,9 @@
  * @file
  * Get, apply, and revert patches.
  */
-//print_r($argv);exit;
 $url = $argv[1];
 $urlParts = explode('/', $url);
 $patchName = end($urlParts);
-//print_r($url);
 if (strpos($url, 'https') !== FALSE) {
   getPatch($url);
   movePatch($patchName);

@@ -143,4 +143,4 @@ lando destroy -y
 lando rebuild  -y
 ```
 
-*Original text from [Lando + Drupal Contributions](https://blog.lando.dev/2020/06/30/lando-drupal-contributions/) By [Geoff St. Pierre](https://twitter.com/serundeputy).*
+*Original text from [Lando + Drupal Contributions](https://blog.lando.dev/2020/06/30/lando-drupal-contributions/) by [Geoff St. Pierre](https://twitter.com/serundeputy).*

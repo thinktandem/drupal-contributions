@@ -17,9 +17,7 @@ tooling:
     service: appserver
     description: Install Drupal
     cmd:
-      - drush --root=/app/web si --db-url=mysql://drupal8:drupal8@database/drupal8 -y
-      - chmod -R 777 /app/web/sites/default
-      - drush --root=/app/web --uri=https://drupal-contributions.lndo.site uli
+      - appserver: /app/scripts/site-install.sh
   patch:
     service: appserver
     description: Get a patch from a Drupal project issue queue
@@ -40,6 +38,11 @@ tooling:
     description: Creat a patch from your committed changes on your branch.
     cmd:
       - appserver: php /app/scripts/patch-helpers.php --create-patch
+  phpunit:
+    service: appserver
+    user: www-data
+    cmd:
+      - appserver: /app/web/vendor/bin/phpunit -c /app/config
 
   test:
       service: appserver
@@ -53,11 +56,4 @@ events:
     - rm -rfv web
     - appserver: php /app/scripts/get-drupal.php
   post-rebuild:
-    - appserver: drush --root=/app/web si --db-url=mysql://drupal8:drupal8@database/drupal8 -y
-    - appserver: drush --root=/app/web en simpletest -y
-    - appserver: chmod -R 777 /app/web/sites/default
-    - appserver: drush --root=/app/web --uri=https://drupal-contributions.lndo.site uli
-    - appserver: echo "vendor" >> /app/web/.gitignore
-    - appserver: echo ".gitignore\nsites/simpletest" >> /app/web/.gitignore
-    - appserver: echo "sites/default/files" >> /app/web/.gitignore
-    - appserver: echo "sites/default/settings.php" >> /app/web/.gitignore
+    - appserver: /app/scripts/rebuild.sh

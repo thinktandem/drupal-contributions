@@ -4,22 +4,27 @@
  * @file
  * Get, apply, and revert patches.
  */
-//print_r($argv);exit;
-$url = $argv[1];
-$urlParts = explode('/', $url);
-$patchName = end($urlParts);
-//print_r($url);
-if (strpos($url, 'https') !== FALSE) {
-  getPatch($url);
-  movePatch($patchName);
-  applyPatch($patchName);
-}
-elseif ($url === '--revert') {
-  $patch = $argv[2];
-  revertPatch($patch);
-}
-elseif ($url === '--create-patch') {
-  createPatch();
+
+include '/app/config/drupal-branch.php';
+
+switch ($argv[1]) {
+  case '--revert':
+    $patch = $argv[2];
+    revertPatch($patch);
+    break;
+
+  case '--create-patch':
+    createPatch();
+    break;
+
+  default:
+    $url = $argv[1];
+    if (strpos($url, 'https') !== FALSE) {
+      $urlParts = explode('/', $url);
+      $patchName = end($urlParts);
+      getPatch($url);
+      applyPatch($patchName);
+    }
 }
 
 /**
@@ -30,19 +35,7 @@ elseif ($url === '--create-patch') {
  */
 function getPatch($url) {
   exec(
-    "wget $url"
-  );
-}
-
-/**
- * Move the patch into drupal root.
- *
- * @param string $patchName
- *   The name of the patch.
- */
-function movePatch($patchName) {
-  exec(
-    "mv $patchName web/"
+    "wget -P /app $url"
   );
 }
 
@@ -54,8 +47,7 @@ function movePatch($patchName) {
  */
 function applyPatch($patchName) {
   exec(
-    "cd /app/web &&
-    git apply -v $patchName"
+    "git -C /app/web apply -v /app/$patchName"
   );
 }
 
@@ -67,8 +59,7 @@ function applyPatch($patchName) {
  */
 function revertPatch($patchName) {
   exec(
-    "cd /app/web &&
-    git apply -Rv $patchName"
+    "git -C /app/web apply -Rv /app/$patchName"
   );
 }
 
@@ -76,11 +67,14 @@ function revertPatch($patchName) {
  * Create a patch from the committed changes on your local branch.
  */
 function createPatch() {
-  exec("cd /app/web && git symbolic-ref HEAD", $output);
+  global $drupalBranch;
+  exec("git -C /app/web symbolic-ref HEAD", $output);
   $branch = explode('/', $output[0]);
   $branch = end($branch);
   exec(
     "cd /app/web &&
-    git diff 8.8.x > $branch.patch"
+    git add -A . &&
+    git diff --cached $drupalBranch > /app/$branch.patch &&
+    git reset HEAD"
   );
 }

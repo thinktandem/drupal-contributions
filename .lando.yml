@@ -9,7 +9,7 @@ services:
       - cd /app/web && composer install
     overrides:
       environment:
-        SIMPLETEST_BASE_URL: "http://appserver"
+        SIMPLETEST_BASE_URL: "https://drupal-contributions.lndo.site/"
         SIMPLETEST_DB: "sqlite://localhost/tmp/db.sqlite"
         MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless", "--no-sandbox"]}}, "http://chrome:9515"]'
   chrome:

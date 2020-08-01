@@ -6,7 +6,8 @@ config:
 services:
   appserver:
     run:
-      - cd /app/web && composer install
+      # @todo remove invocation of drupal-phpunit-upgrade again once https://www.drupal.org/project/drupal/issues/3099061 is resolved.
+      - cd /app/web && composer install && composer run-script drupal-phpunit-upgrade
     overrides:
       environment:
         SIMPLETEST_BASE_URL: "https://drupal-contributions.lndo.site/"

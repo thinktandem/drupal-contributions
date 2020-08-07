@@ -116,6 +116,22 @@ lando create-patch
 
 This will output a patch file to `/app/web/ISSUE####-COMMENT#.patch`, which you can upload to the drupal.org issue.
 
+#### Creating a Patch for a Contrib Module
+
+To create a patch for a contrib module, for example [Admin Toolbar](https://www.drupal.org/project/admin_toolbar), go to [Version control](https://www.drupal.org/project/admin_toolbar/git-instructions), follow the instructions how to clone the correct version and `cd` into the module folder.
+
+Inside the contrib module folder, create a branch in the format `ISSUE####-COMMENT#.patch`:
+
+```
+git checkout -b 1234567-admin_toolbar-improved-paths
+```
+When you are ready to create the patch, add any new files and updates to existing files, and create the patch:
+
+```
+git add -A
+git diff 1234567-admin_toolbar-improved-paths > 1234567-admin_toolbar-improved-paths.patch
+```
+
 ## Running Tests
 
 When you create a patch you may have written tests for it that you want to run. At a minimum you'll want to run the tests for the module the patch is for to make sure your changes have not introduced regressions. To run the tests use the `lando test` command. To see what you can do use:

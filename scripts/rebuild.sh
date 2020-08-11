@@ -1,6 +1,6 @@
 #!/bin/bash
 
-drush --root=/app/web si --db-url=mysql://drupal8:drupal8@database/drupal8 -y
+drush --root=/app/web si --db-url=mysql://drupal9:drupal9@database/drupal9 -y
 drush --root=/app/web en simpletest -y
 mkdir -p -m 777 /app/web/sites/simpletest/browser_output
 find /app/web/sites/default -type d -exec chmod 777 '{}' \;

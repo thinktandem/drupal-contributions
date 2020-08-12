@@ -145,10 +145,16 @@ When you create a patch you may have written tests for it that you want to run. 
 lando test --help
 ```
 
-To run the tests from the `file` module for example use:
+To run all the tests from the `file` module for example use:
 
 ```
 lando test --module file
+```
+
+To run a single test from the `rdf` module for example use:
+
+```
+lando test --file core/modules/rdf/tests/src/Functional/GetRdfNamespacesTest.php
 ```
 
 ## La Fin

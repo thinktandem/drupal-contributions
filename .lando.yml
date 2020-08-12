@@ -7,7 +7,7 @@ services:
   appserver:
     run:
       # @todo remove invocation of drupal-phpunit-upgrade again once https://www.drupal.org/project/drupal/issues/3099061 is resolved.
-      - cd /app/web && composer install && composer run-script drupal-phpunit-upgrade
+      - cd /app/web && composer require drush/drush && composer install && composer run-script drupal-phpunit-upgrade
     overrides:
       environment:
         SIMPLETEST_BASE_URL: "https://drupal-contributions.lndo.site/"

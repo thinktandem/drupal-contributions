@@ -145,21 +145,36 @@ When you create a patch you may have written tests for it that you want to run. 
 lando test --help
 ```
 
-To run all the tests from the `file` module for example use:
+To run all the tests from the Database Logging module (`dblog`) for example use:
 
 ```
-lando test --module file
+lando test --module dblog
 ```
 
-To run a single test from the `rdf` module for example use:
+To run a single test from the RDF module for example use:
 
 ```
 lando test --file core/modules/rdf/tests/src/Functional/GetRdfNamespacesTest.php
 ```
 
+#### PHPUnit
+PHPUnit runs all the tests in Drupal 8 and above, to run tests with [PHPUnit](https://www.drupal.org/docs/automated-testing/phpunit-in-drupal/running-phpunit-tests):
+
+Run all tests from the Ban module:
+
+```
+lando phpunit web/core/modules/ban
+```
+
+Run a single test from the Big Pipe module:
+
+```
+lando phpunit web/core/modules/big_pipe/tests/src/Functional/BigPipeTest.php
+```
+
 ## La Fin
 
-Once you have the `8.8.x` you can keep it and sync it periodically and `lando start`'s will keep that around. If you want to totally start fresh:
+Once you have the `8.9.x` you can keep it and sync it periodically and `lando start`'s will keep that around. If you want to totally start fresh:
 
 ```
 # destroys drupal-contributions app and removes /web

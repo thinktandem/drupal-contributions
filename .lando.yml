@@ -54,7 +54,7 @@ tooling:
     service: appserver
     user: www-data
     cmd:
-      - appserver: /app/web/vendor/bin/phpunit -c /app/config
+      - appserver: php /app/web/vendor/bin/phpunit -c /app/phpunit.xml
 
   test:
       service: appserver

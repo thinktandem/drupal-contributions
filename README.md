@@ -47,7 +47,7 @@ Next `rebuild` the `drupal-contributions` app:
 lando rebuild -y
 ```
 
-This will pull in the drupal source code from the `8.8.x` branch, run `composer install` to get dependencies, install Drupal, enable `simpletest` module, and provide us with a one time login link (`uli`).
+This will pull in the drupal source code from the `8.9.x-dev` branch, run `composer install` to get dependencies, install Drupal, enable `simpletest` module, and provide us with a one time login link (`uli`).
 
 After `rebuild` completes you should see something similar to this:
 

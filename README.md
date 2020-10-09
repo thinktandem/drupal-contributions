@@ -160,10 +160,28 @@ lando test --file core/modules/rdf/tests/src/Functional/GetRdfNamespacesTest.php
 #### PHPUnit
 PHPUnit runs all the tests in Drupal 8 and above, to run tests with [PHPUnit](https://www.drupal.org/docs/automated-testing/phpunit-in-drupal/running-phpunit-tests):
 
-Run all tests from the Ban module:
+List all tests groups:
 
 ```
-lando phpunit web/core/modules/ban
+lando phpunit --list-groups
+```
+
+Run one group of tests, for example BigPipe:
+
+```
+lando phpunit --group big_pipe
+```
+
+Run multiple groups of tests:
+
+```
+lando phpunit --group Group1,Group2
+```
+
+Exclude a group of tests:
+
+```
+lando phpunit --exclude-group Groupname
 ```
 
 Run a single test from the Big Pipe module:

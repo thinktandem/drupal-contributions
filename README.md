@@ -184,7 +184,7 @@ Exclude a group of tests:
 lando phpunit --exclude-group Groupname
 ```
 
-Run a single test from the Big Pipe module:
+Run a single test from the BigPipe module:
 
 ```
 lando phpunit web/core/modules/big_pipe/tests/src/Functional/BigPipeTest.php

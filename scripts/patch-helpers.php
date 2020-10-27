@@ -73,7 +73,6 @@ function createPatch() {
   $branch = end($branch);
   exec(
     "cd /app/web &&
-    git add -A . &&
     git diff --cached $drupalBranch > /app/$branch.patch &&
     git reset HEAD"
   );

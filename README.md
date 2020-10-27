@@ -108,15 +108,27 @@ We can now leave a comment on the issue saying that we tested the patch and it w
 
 ## Creating a Patch
 
-If you are fixing a drupal.org issue, you should checkout a branch using the prescribed naming conventions `ISSUE####-COMMENT#.patch`. Write your code. Commit your code. Then you can utilize the `lando create-patch` to output the patch file based on your branch name.
+If you are fixing a drupal.org issue, you should checkout a branch using the prescribed naming conventions `ISSUE####-COMMENT#`. Write your code. Commit your code. Then you can utilize the `lando create-patch` to output the patch file based on your branch name.
 
 ```
 lando create-patch
 ```
 
-This will output a patch file to `/app/web/ISSUE####-COMMENT#.patch`, which you can upload to the drupal.org issue.
+This will output a patch file to `/app/ISSUE####-COMMENT#.patch`, which you can upload to the drupal.org issue.
 
-#### Contrib Module
+#### Core Patch Example
+These are the steps required to create a patch. This example creates a branch, updates the `CHANGELOG.txt` core file, commits the update and creates the patch.
+
+```
+cd web
+git checkout -b 987654-new-patch
+echo "TEST" >> core/CHANGELOG.txt
+git add core/CHANGELOG.txt
+git commit -m "Updates CHANGELOG.txt"
+lando create-patch
+```
+
+#### Contrib Module Example
 
 To create a patch for a contrib module, for example [Admin Toolbar](https://www.drupal.org/project/admin_toolbar), download it to the modules folder, following the instructions under [Version control](https://www.drupal.org/project/admin_toolbar/git-instructions):
 
@@ -124,7 +136,7 @@ To create a patch for a contrib module, for example [Admin Toolbar](https://www.
 cd web/modules
 git clone --branch 8.x-2.x https://git.drupalcode.org/project/admin_toolbar.git
 ```
-Inside the contrib module folder, create a branch in the format `ISSUE####-COMMENT#.patch`:
+Inside the contrib module folder, create a branch in the format `ISSUE####-COMMENT#`:
 
 ```
 cd admin_toolbar

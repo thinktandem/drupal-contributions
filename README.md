@@ -157,16 +157,49 @@ When you create a patch you may have written tests for it that you want to run. 
 lando test --help
 ```
 
-To run all the tests from the `file` module for example use:
+To run all the tests from the Database Logging module (`dblog`) for example use:
 
 ```
-lando test --module file
+lando test --module dblog
 ```
 
-To run a single test from the `rdf` module for example use:
+To run a single test from the RDF module for example use:
 
 ```
 lando test --file core/modules/rdf/tests/src/Functional/GetRdfNamespacesTest.php
+```
+
+#### PHPUnit
+PHPUnit runs all the tests in Drupal 8 and above, to run tests with [PHPUnit](https://www.drupal.org/docs/automated-testing/phpunit-in-drupal/running-phpunit-tests):
+
+List all tests groups:
+
+```
+lando phpunit --list-groups
+```
+
+Run one group of tests, for example BigPipe:
+
+```
+lando phpunit --group big_pipe
+```
+
+Run multiple groups of tests:
+
+```
+lando phpunit --group Group1,Group2
+```
+
+Exclude a group of tests:
+
+```
+lando phpunit --exclude-group Groupname
+```
+
+Run a single test from the BigPipe module:
+
+```
+lando phpunit web/core/modules/big_pipe/tests/src/Functional/BigPipeTest.php
 ```
 
 ## La Fin

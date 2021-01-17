@@ -24,7 +24,7 @@ tooling:
   drush:
     service: appserver
     cmd:
-      drush --root=/app/web --uri=https://drupal-contributions.lndo.site
+      web/vendor/drush/drush/drush --root=/app/web --uri=https://drupal-contributions.lndo.site
   si:
     service: appserver
     description: Install Drupal

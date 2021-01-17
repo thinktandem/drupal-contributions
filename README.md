@@ -108,7 +108,7 @@ We can now leave a comment on the issue saying that we tested the patch and it w
 
 ## Creating a Patch
 
-If you are fixing a drupal.org issue, you should checkout a branch using the prescribed naming conventions `ISSUE####-COMMENT#`. Write your code. Commit your code. Then you can utilize the `lando create-patch` to output the patch file based on your branch name.
+If you are fixing a drupal.org issue, you should enter the `web` folder, checkout a branch using the prescribed naming conventions `ISSUE####-COMMENT#`. Write your code. Commit your code. Then you can utilize the `lando create-patch` to output the patch file based on your branch name.
 
 ```
 lando create-patch

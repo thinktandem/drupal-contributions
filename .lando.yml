@@ -63,6 +63,7 @@ tooling:
 
 events:
   post-destroy:
+    - chmod 777 -R web/sites/default
     - rm -rfv web
   pre-rebuild:
     - rm -rfv web

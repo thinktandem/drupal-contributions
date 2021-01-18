@@ -21,6 +21,7 @@ Using this repo gives you a `.lando.yml` file configured for Drupal contribution
 - Automatically kills the source code and database on `lando rebuild -y` so you can start fresh with each patch
 - Automatically enables `simpletest`
 - Adds a `lando test` command to invoke Drupal simpletests
+- Adds a `lando phpunit` command to invoke PHPUnit tests
 - Adds a `lando si` command to reinstall the site with fresh DB if you need one (without rebuilding)
 - Adds a `lando patch URL` command to pull down and apply a patch from drupal.org
 - Adds a `lando revert PATCH_NAME` command should you need/want to revert a patch

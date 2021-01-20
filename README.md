@@ -74,33 +74,25 @@ and the `web` directory should be populated with the Drupal source code.
 
 ## Testing Drupal Patches
 
-Now we are ready to find a Drupal issue. Search the issue queue for an `8.x` issue that you want to test. Grab the URL of the latest patch and apply it to our `drupal-contributions` environment.
+Now we are ready to find a Drupal issue. Search the issue queue for an `9.x` issue that you want to test. Grab the URL of the latest patch and apply it to our `drupal-contributions` environment.
 
-For example if you choose this issue: https://www.drupal.org/project/drupal/issues/2962649, the latest corresponding patch (as of 25 June 2020) is https://www.drupal.org/files/issues/2019-09-12/2962649-10.patch. To apply this patch:
+For example if you choose this issue: https://www.drupal.org/project/drupal/issues/3186076, the latest corresponding patch (as of 20 January 2021) is https://git.drupalcode.org/project/drupal/-/merge_requests/161.diff ("plain diff" link). To apply this patch:
 
 ```
-lando patch https://www.drupal.org/files/issues/2019-09-12/2962649-10.patch
+lando patch https://git.drupalcode.org/project/drupal/-/merge_requests/161.diff
 ```
+
+Note: Both Gitlab-patches with `.diff` suffix as well as the old style `.patch` files will work.
 
 To revert the patch:
 
 ```
-lando revert 2962649-10.patch
+lando revert 161.diff
 ```
 
 This way we can `apply` and `revert` as many times as we want/need to during our testing.
 
-To test this issue first add a file field to a content type say the page content type at `/admin/structure/types/manage/page/fields`. Now add a `page` node at `/admin/content/add/page` and add a text file to the file field you just made.
-
-Visit the page in your web browser and click the file link. The file shows up in the current window. Now apply the patch with:
-
-```
-lando patch https://www.drupal.org/files/issues/2019-09-12/2962649-10.patch
-```
-
-and visit the `/admin/structure/types/manage/page/display` page and click through the gear to get to the settings of the `file_link` field we added to the `page` content type. You shoud now see a checkbox for `Open file in new tab (target=_blank)` which we can check and save.
-
-Now visit the page or refresh the page in a web browser and click the file link. This time the file opens in a new tab!
+To test this issue, apply the patch as outlined above, clear caches, and visit for example `/admin/structure/views/view/frontpage`, and see that the "Tour" link has been turned blue, and the text extended to "Take a tour of this page".
 
 The patch works!
 

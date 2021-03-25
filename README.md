@@ -22,7 +22,7 @@ The spin ups should be considered completely ephemeral as on every `lando rebuil
 
 Using this repo gives you a `.lando.yml` file configured for Drupal contributions:
 
-- Automatically grabs the Drupal source code and runs `comoposer install` on `lando rebuild -y`
+- Automatically grabs the Drupal source code and runs `composer install` on `lando rebuild -y`
 - Automatically kills the source code and database on `lando rebuild -y` so you can start fresh with each patch
 - Automatically enables `simpletest`
 - Adds a `lando test` command to invoke Drupal simpletests

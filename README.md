@@ -2,12 +2,17 @@
 
 This repo is intended to make it easy to contribute to the [Drupal core](https://drupal.org/project/drupal) and contrib projects.
 
-- [Why](#why)
-- [How](#how)
-- [Testing Drupal Patches](#testing-drupal-patches)
-- [Creating a Patch](#creating-a-patch)
-- [Running Tests](#running-tests)
-- [La Fin](#la-fin)
+- [Lando + Drupal Contributions](#lando--drupal-contributions)
+  - [Why?](#why)
+  - [How?](#how)
+  - [Testing Drupal Patches](#testing-drupal-patches)
+  - [Creating a Patch](#creating-a-patch)
+      - [Core Patch Example](#core-patch-example)
+      - [Contrib Module Example](#contrib-module-example)
+  - [Running Tests](#running-tests)
+      - [PHPUnit](#phpunit)
+      - [Nightwatch](#nightwatch)
+  - [La Fin](#la-fin)
 
 ## Why?
 
@@ -200,6 +205,26 @@ Run a single test from the BigPipe module:
 
 ```
 lando phpunit web/core/modules/big_pipe/tests/src/Functional/BigPipeTest.php
+```
+
+#### Nightwatch
+
+To run only core tests, run:
+
+```
+lando nightwatch --tag core
+```
+
+To skip running core tests, run:
+
+```
+lando nightwatch --skiptags core
+```
+
+To run a single test, run e.g:
+
+```
+lando nightwatch tests/Drupal/Nightwatch/Tests/exampleTest.js
 ```
 
 ## La Fin

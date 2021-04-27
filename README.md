@@ -30,6 +30,7 @@ Using this repo gives you a `.lando.yml` file configured for Drupal contribution
 - Adds a `lando si` command to reinstall the site with fresh DB if you need one (without rebuilding)
 - Adds a `lando patch URL` command to pull down and apply a patch from drupal.org
 - Adds a `lando revert PATCH_NAME` command should you need/want to revert a patch
+- Adds a `lando core-check` coommand to check code standards and spelling
 - Adds a `lando create-patch` coommand to create a patch from the current branch
 
 ## How?
@@ -106,7 +107,15 @@ We can now leave a comment on the issue saying that we tested the patch and it w
 
 ## Creating a Patch
 
-If you are fixing a drupal.org issue, you should enter the `web` folder, checkout a branch using the prescribed naming conventions `ISSUE####-COMMENT#`. Write your code. Commit your code. Then you can utilize the `lando create-patch` to output the patch file based on your branch name.
+If you are fixing a drupal.org issue, you should enter the `web` folder, checkout a branch using the prescribed naming conventions `ISSUE####-COMMENT#`. Write your code. Commit your code. Check your code using `lando core-check`. Then you can utilize the `lando create-patch` to output the patch file based on your branch name.
+
+```
+lando core-check
+```
+
+This will run the same tests that the testbot runs before running the actual
+PHPUnit tests: spell check, CodeSniffer, etc. You can ignore reports that your
+files have permissions 664 instead of 644.
 
 ```
 lando create-patch
@@ -123,6 +132,7 @@ git checkout -b 987654-new-patch
 echo "TEST" >> core/CHANGELOG.txt
 git add core/CHANGELOG.txt
 git commit -m "Updates CHANGELOG.txt"
+lando core-check
 lando create-patch
 ```
 

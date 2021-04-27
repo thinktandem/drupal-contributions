@@ -73,6 +73,11 @@ tooling:
     cmd:
       - appserver: php /app/web/vendor/bin/phpunit -c /app/phpunit.xml
 
+  core-check:
+    service: appserver
+    cmd:
+      - appserver: php /app/scripts/core-check.php
+
   test:
       service: appserver
       cmd:

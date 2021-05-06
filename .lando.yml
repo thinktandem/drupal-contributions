@@ -12,8 +12,7 @@ services:
       - apt-get install -y nodejs
       - npm install --global yarn
     run:
-      # @todo remove invocation of drupal-phpunit-upgrade again once https://www.drupal.org/project/drupal/issues/3099061 is resolved.
-      - cd /app/web && composer require drush/drush && composer install && composer run-script drupal-phpunit-upgrade
+      - cd /app/web && composer require drush/drush && composer install
       - mkdir -p private/browsertest_output
       - yarn install --non-interactive --cwd /app/web/core
     overrides:

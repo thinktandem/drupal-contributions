@@ -17,8 +17,6 @@ services:
       - yarn install --non-interactive --cwd /app/web/core
     overrides:
       environment:
-        SIMPLETEST_BASE_URL: "https://drupal-contributions.lndo.site/"
-        SIMPLETEST_DB: "sqlite://localhost/tmp/db.sqlite"
         MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless", "--no-sandbox"]}}, "http://chrome:9515"]'
         # Nightwatch
         DRUPAL_TEST_BASE_URL: 'http://appserver'
@@ -28,7 +26,7 @@ services:
         DRUPAL_TEST_CHROMEDRIVER_AUTOSTART: 'false'
         DRUPAL_TEST_WEBDRIVER_CHROME_ARGS: "--disable-gpu --headless --no-sandbox"
         DRUPAL_NIGHTWATCH_OUTPUT: reports/nightwatch
-        DRUPAL_NIGHTWATCH_IGNORE_DIRECTORIES: node_modules,vendor,.*,sites/*/files,sites/*/private,sites/simpletest
+        DRUPAL_NIGHTWATCH_IGNORE_DIRECTORIES: node_modules,vendor,.*,sites/*/files,sites/*/private
   chrome:
     type: compose
     app_mount: false

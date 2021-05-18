@@ -77,11 +77,6 @@ tooling:
     cmd:
       - appserver: php /app/scripts/core-check.php
 
-  test:
-      service: appserver
-      cmd:
-        - php /app/web/core/scripts/run-tests.sh --php /usr/local/bin/php --url https://drupal-contributions.lndo.site --color --verbose
-
   nightwatch:
     service: appserver
     description: Run Nightwatch.js

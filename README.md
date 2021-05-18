@@ -24,8 +24,6 @@ Using this repo gives you a `.lando.yml` file configured for Drupal contribution
 
 - Automatically grabs the Drupal source code and runs `composer install` on `lando rebuild -y`
 - Automatically kills the source code and database on `lando rebuild -y` so you can start fresh with each patch
-- Automatically enables `simpletest`
-- Adds a `lando test` command to invoke Drupal simpletests
 - Adds a `lando phpunit` command to invoke PHPUnit tests
 - Adds a `lando si` command to reinstall the site with fresh DB if you need one (without rebuilding)
 - Adds a `lando patch URL` command to pull down and apply a patch from drupal.org
@@ -54,7 +52,7 @@ Next `rebuild` the `drupal-contributions` app:
 lando rebuild -y
 ```
 
-This will pull in the drupal source code from the `9.2.x-dev` branch, run `composer install` to get dependencies, install Drupal, enable `simpletest` module, and provide us with a one time login link (`uli`).
+This will pull in the drupal source code from the `9.3.x-dev` branch, run `composer install` to get dependencies, install Drupal, and provide us with a one time login link (`uli`).
 
 After `rebuild` completes you should see something similar to this:
 

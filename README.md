@@ -6,6 +6,8 @@ This repo is intended to make it easy to contribute to the [Drupal core](https:/
   - [Why?](#why)
   - [How?](#how)
   - [Testing Drupal Patches](#testing-drupal-patches)
+      - [Test a Core Patch](#test-a-core-patch)
+      - [Test a Contrib Module Patch](#test-a-contrib-module-patch)
   - [Creating a Patch](#creating-a-patch)
       - [Core Patch Example](#core-patch-example)
       - [Contrib Module Example](#contrib-module-example)
@@ -79,7 +81,9 @@ and the `web` directory should be populated with the Drupal source code.
 
 ## Testing Drupal Patches
 
-Now we are ready to find a Drupal issue. Search the issue queue for an `9.x` issue that you want to test. Grab the URL of the latest patch and apply it to our `drupal-contributions` environment.
+#### Test a Core Patch
+
+Now we are ready to find a Drupal core issue. Search the issue queue for a core `9.x` issue that you want to test. Grab the URL of the latest patch and apply it to our `drupal-contributions` environment.
 
 For example if you choose this issue: https://www.drupal.org/project/drupal/issues/3186076, the latest corresponding patch (as of 20 January 2021) is https://git.drupalcode.org/project/drupal/-/merge_requests/161.diff ("plain diff" link). To apply this patch:
 
@@ -101,11 +105,45 @@ To test this issue, apply the patch as outlined above, clear caches, and visit f
 
 The patch works!
 
-We can now leave a comment on the issue saying that we tested the patch and it works as expected for us.
+We can now leave a comment on the issue saying that we tested the patch and it works as expected for us
+
+#### Test a Contrib Module Patch
+
+At the moment, Lando + Drupal Contributions doesn't `automate` contrib module patch testing and creating. In the meantime, you can still use the `drupal-contributions` environment to test and create contrib module patches as you would otherwise. One simple method is to search the contrib module issue queue for an issue that you want to test. Grab the URL of the latest patch, and apply it the contrib module in our `drupal-contributions` environment.
+
+For example, if you choose the geofield contrib module and this issue: https://www.drupal.org/project/geofield/issues/2770313, the latest corresponding patch (as of 2 June 2019) is https://www.drupal.org/files/issues/2019-06-02/geofield-add-GeometryType-storaging-2770313-26.patch. To apply this patch:
+
+```
+cd web/modules;
+git clone https://git.drupalcode.org/project/geofield.git;
+cd geofield;
+wget https://www.drupal.org/files/issues/2019-06-02/geofield-add-GeometryType-storaging-2770313-26.patch;
+git apply -v geofield-add-GeometryType-storaging-2770313-26.patch;
+```
+
+Note: Both Gitlab-patches with `.diff` suffix as well as the old style `.patch` files will work.
+
+If the patch fails, try to figure out why. For example, run its phpunit tests:
+
+```
+lando phpunit --group geofield;
+```
+
+If you discover anything useful, leave a comment on the issue at drupal.org.
+
+To revert the patch:
+
+```
+lando revert geofield-add-GeometryType-storaging-2770313-26.patch
+```
+
+This way we can `apply` and `revert` as many times as we want/need to during our testing.
 
 ## Creating a Patch
 
-If you are fixing a drupal.org issue, you should enter the `web` folder, checkout a branch using the prescribed naming conventions `ISSUE####-COMMENT#`. Write your code. Commit your code. Check your code using `lando core-check`. Then you can utilize the `lando create-patch` to output the patch file based on your branch name.
+#### Core Patch Example
+
+If you are fixing a drupal.org core issue, you should enter the `web` folder, checkout a branch using the prescribed naming conventions `ISSUE####-COMMENT#`. Write your code. Commit your code. Check your code using `lando core-check`. Then you can utilize the `lando create-patch` to output the patch file based on your branch name.
 
 ```
 lando core-check
@@ -121,8 +159,7 @@ lando create-patch
 
 This will output a patch file to `/app/ISSUE####-COMMENT#.patch`, which you can upload to the drupal.org issue.
 
-#### Core Patch Example
-These are the steps required to create a patch. This example creates a branch, updates the `CHANGELOG.txt` core file, commits the update and creates the patch.
+For example, these are the steps required to create a core patch. This example creates a branch, updates the `CHANGELOG.txt` core file, commits the update and creates the patch.
 
 ```
 cd web
@@ -136,44 +173,64 @@ lando create-patch
 
 #### Contrib Module Example
 
-To create a patch for a contrib module, for example [Admin Toolbar](https://www.drupal.org/project/admin_toolbar), download it to the modules folder, following the instructions under [Version control](https://www.drupal.org/project/admin_toolbar/git-instructions):
+To create a contrib module patch, for example [Admin Toolbar](https://www.drupal.org/project/admin_toolbar), download it to the modules folder, following the instructions under [Version control](https://www.drupal.org/project/admin_toolbar/git-instructions):
 
 ```
 cd web/modules
 git clone --branch 8.x-2.x https://git.drupalcode.org/project/admin_toolbar.git
 ```
-Inside the contrib module folder, create a branch in the format `ISSUE####-COMMENT#`:
+
+Inside the contrib module folder, create a branch in the format `ISSUE####-COMMENT#`. For example:
 
 ```
 cd admin_toolbar
 git checkout -b 1234567-admin_toolbar-improved-paths
 ```
-When you are ready to create the patch, add any new files and updates to existing files, and create the patch:
+
+Make your changes.
 
 ```
-git add -A
-git diff 1234567-admin_toolbar-improved-paths > 1234567-admin_toolbar-improved-paths.patch
+...(code code code)...
 ```
+
+Test your changes. For example:
+
+```
+cd ../drupal-contributions;
+lando phpunit --group admin_toolbar;
+
+// or run a single test
+
+lando phpunit web/modules/admin_toolbar/tests/src/Functional/AdminToolbarAlterTest.php
+```
+
+When you are ready, add/commit the relevant changes and create the patch. For example:
+
+```
+
+git add this.php that.js
+git commit -m "Your commit message"
+
+// While still on your patch branch, git diff the module's dev branch and redirect its output to a file in the format ISSUE####-COMMENT#.patch. For example:
+
+git diff 8.x-2.x > 1234567-admin_toolbar-improved-paths.patch
+```
+
+Verify your own contrib module patch against the module's dev branch. For example:
+
+```
+git checkout 8.x-2.x;
+git apply -v 1234567-admin_toolbar-improved-paths.patch;
+
+// Verify output of above command is:
+
+Checking patch...
+Applied patch...cleanly.
+```
+
+If the patch works, upload it to the drupal.org contrib module issue.
 
 ## Running Tests
-
-When you create a patch you may have written tests for it that you want to run. At a minimum you'll want to run the tests for the module the patch is for to make sure your changes have not introduced regressions. To run the tests use the `lando test` command. To see what you can do use:
-
-```
-lando test --help
-```
-
-To run all the tests from the Database Logging module (`dblog`) for example use:
-
-```
-lando test --module dblog
-```
-
-To run a single test from the RDF module for example use:
-
-```
-lando test --file core/modules/rdf/tests/src/Functional/GetRdfNamespacesTest.php
-```
 
 #### PHPUnit
 PHPUnit runs all the tests in Drupal 8 and above, to run tests with [PHPUnit](https://www.drupal.org/docs/automated-testing/phpunit-in-drupal/running-phpunit-tests):

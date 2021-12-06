@@ -10,8 +10,8 @@
     <ini name="memory_limit" value="-1"/>
     <env name="SIMPLETEST_BASE_URL" value=""/>
     <env name="SIMPLETEST_DB" value=""/>
-    <env name="BROWSERTEST_OUTPUT_DIRECTORY" value=""/>
-    <env name="BROWSERTEST_OUTPUT_BASE_URL" value="/app/web/sites/simpletest/browser_output"/>
+    <env name="BROWSERTEST_OUTPUT_DIRECTORY" value="/app/web/sites/simpletest/browser_output"/>
+    <env name="BROWSERTEST_OUTPUT_BASE_URL" value=""/>
     <env name="MINK_DRIVER_CLASS" value=''/>
     <env name="MINK_DRIVER_ARGS" value=''/>
     <env name="MINK_DRIVER_ARGS_PHANTOMJS" value=''/>

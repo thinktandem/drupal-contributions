@@ -5,9 +5,9 @@ image:
 tasks:
   - name: Setup Drupal Contributions
     init: |
+      docker build -t devwithlando/php:8.0-apache-4 .
       lando rebuild -y
     command: |
-      lando --clear
       lando start -y 
       gp preview $(gp url $(lando info --format=json | jq -r ".[0].urls[1]" | sed -e 's#http://localhost:\(\)#\1#'))
   

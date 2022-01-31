@@ -10,5 +10,5 @@ RUN sudo apt-get -y install apt-transport-https ca-certificates gnupg lsb-releas
     && sudo curl -fsSL -o /usr/local/bin/lando "https://files.lando.dev/cli/lando-linux-x64-edge" \
     && sudo chmod +x /usr/local/bin/lando \
     && mkdir -p ~/.lando/cache \
-    && echo -e "proxy: 'OFF'\nbindAddress: '0.0.0.0'\nproxyBindAddress: '0.0.0.0'" > ~/.lando/config.yml \
+    && echo "proxy: 'OFF'\nbindAddress: '0.0.0.0'\nproxyBindAddress: '0.0.0.0'" > ~/.lando/config.yml \
     && lando --clear

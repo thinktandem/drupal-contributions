@@ -1,0 +1,43 @@
+# Learn more about this file at https://www.gitpod.io/docs/references/gitpod-yml
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Setup Drupal Contributions
+    init: |
+      lando rebuild -y
+    command: |
+      lando --clear
+      lando start -y 
+      gp preview $(gp url $(lando info --format=json | jq -r ".[0].urls[1]" | sed -e 's#http://localhost:\(\)#\1#'))
+  
+ports:
+  - port: 3306
+    onOpen: ignore
+  - port: 80
+    onOpen: ignore
+  - port: 443
+    onOpen: ignore
+
+github:
+  prebuilds:
+    master: true
+    branches: false
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: true
+    addComment: false
+    addBadge: true
+
+vscode:
+  extensions:
+    - felixfbecker.php-debug
+    - dbaeumer.vscode-eslint
+    - eamodio.gitlens
+    - EditorConfig.EditorConfig
+    - esbenp.prettier-vscode
+    - stylelint.vscode-stylelint
+    - tombonnike.vscode-status-bar-format-toggle
+    - usernamehw.errorlens
+    - mblode.twig-language
+    - marcostazi.VS-code-drupal

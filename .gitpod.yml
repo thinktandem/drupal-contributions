@@ -1,6 +1,5 @@
 # Learn more about this file at https://www.gitpod.io/docs/references/gitpod-yml
-image:
-  file: .gitpod.Dockerfile
+image: devwithlando/gitpod:1
 
 tasks:
   - name: Setup Drupal Contributions

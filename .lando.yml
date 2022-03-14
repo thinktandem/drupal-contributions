@@ -8,7 +8,7 @@ services:
     build_as_root:
       # Note that you will want to use the script for the major version of node you want to install
       # See: https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions
-      - curl -sL https://deb.nodesource.com/setup_12.x | bash -
+      - curl -sL https://deb.nodesource.com/setup_16.x | bash -
       - apt-get install -y nodejs
       - npm install --global yarn
     run:

@@ -36,7 +36,7 @@ services:
     app_mount: false
     services:
       image: drupalci/webdriver-chromedriver:production
-      command: chromedriver --log-path=/tmp/chromedriver.log --verbose --whitelisted-ips=
+      command: chromedriver --log-path=/tmp/chromedriver.log --allowed-origins=* --verbose --whitelisted-ips=
 
 tooling:
   drush:

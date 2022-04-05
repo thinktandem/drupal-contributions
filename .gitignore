@@ -1,6 +1,7 @@
 web
 vendor
 node_modules
+.lando.local.yml
 /*.patch
 *.sql
 *.sql.gz

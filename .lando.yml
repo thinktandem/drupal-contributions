@@ -12,7 +12,7 @@ services:
       - apt-get install -y nodejs
       - npm install --global yarn
     run:
-      - cd /app/web && composer require drush/drush && composer install
+      - cd /app/web && composer require drush/drush && composer install && git checkout composer.json composer.lock composer/Metapackage/CoreRecommended/composer.json composer/Metapackage/PinnedDevDependencies/composer.json
       - mkdir -p private/browsertest_output
       - yarn install --non-interactive --cwd /app/web/core
     overrides:

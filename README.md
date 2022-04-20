@@ -41,6 +41,7 @@ Let's step through how to spin up your contribution workflow. First clone down t
 
 ```
 git clone git@github.com:thinktandem/drupal-contributions.git
+git checkout 10.x
 cd drupal-contributions
 ```
 
@@ -54,7 +55,7 @@ Next `rebuild` the `drupal-contributions` app:
 lando rebuild -y
 ```
 
-This will pull in the drupal source code from the `9.4.x-dev` branch, run `composer install` to get dependencies, install Drupal, and provide us with a one time login link (`uli`).
+This will pull in the drupal source code from the `10.0.x-dev` branch, run `composer install` to get dependencies, install Drupal, and provide us with a one time login link (`uli`).
 
 After `rebuild` completes you should see something similar to this:
 
@@ -287,7 +288,7 @@ lando nightwatch tests/Drupal/Nightwatch/Tests/exampleTest.js
 
 ## La Fin
 
-Once you have the `9.2.x` you can keep it and sync it periodically and `lando start`'s will keep that around. If you want to totally start fresh:
+Once you have the `10.0.x` you can keep it and sync it periodically and `lando start`'s will keep that around. If you want to totally start fresh:
 
 ```
 # destroys drupal-contributions app and removes /web

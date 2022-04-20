@@ -40,8 +40,7 @@ Video presentation: [SFDUG - June 25 - Lando for Contrib / LLC, Corporation or S
 Let's step through how to spin up your contribution workflow. First clone down this repo:
 
 ```
-git clone git@github.com:thinktandem/drupal-contributions.git
-git checkout 10.x
+git clone -b 10.x git@github.com:thinktandem/drupal-contributions.git
 cd drupal-contributions
 ```
 

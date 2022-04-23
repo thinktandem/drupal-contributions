@@ -83,12 +83,12 @@ and the `web` directory should be populated with the Drupal source code.
 
 #### Test a Core Patch
 
-Now we are ready to find a Drupal core issue. Search the issue queue for a core `9.x` issue that you want to test. Grab the URL of the latest patch and apply it to our `drupal-contributions` environment.
+Now we are ready to find a Drupal core issue. Search the issue queue for a core `10.x` issue that you want to test. Grab the URL of the latest patch and apply it to our `drupal-contributions` environment.
 
-For example if you choose this issue: https://www.drupal.org/project/drupal/issues/3186076, the latest corresponding patch (as of 20 January 2021) is https://git.drupalcode.org/project/drupal/-/merge_requests/161.diff ("plain diff" link). To apply this patch:
+For example, if you choose the issue [Create new "Views Responsive Grid" format for Views Core](https://www.drupal.org/project/drupal/issues/3151553), the latest corresponding patch (as of 23 April 2022) is https://git.drupalcode.org/project/drupal/-/merge_requests/1585.diff ("plain diff" link). To apply this patch:
 
 ```
-lando patch https://git.drupalcode.org/project/drupal/-/merge_requests/161.diff
+lando patch https://git.drupalcode.org/project/drupal/-/merge_requests/1585.diff
 ```
 
 Note: Both Gitlab-patches with `.diff` suffix as well as the old style `.patch` files will work.
@@ -96,16 +96,16 @@ Note: Both Gitlab-patches with `.diff` suffix as well as the old style `.patch` 
 To revert the patch:
 
 ```
-lando revert 161.diff
+lando revert 1585.diff
 ```
 
 This way we can `apply` and `revert` as many times as we want/need to during our testing.
 
-To test this issue, apply the patch as outlined above, clear caches, and visit for example `/admin/structure/views/view/frontpage`, and see that the "Tour" link has been turned blue, and the text extended to "Take a tour of this page".
+To test this issue, apply the patch as outlined above, clear caches, build a View with the new "Responsive Grid" format (set "Minimum grid cell width" to `200px`,) and see that the elements align nicely.
 
 The patch works!
 
-We can now leave a comment on the issue saying that we tested the patch and it works as expected for us
+We can now leave a comment on the issue saying that we tested the patch and it works as expected for us.
 
 #### Test a Contrib Module Patch
 

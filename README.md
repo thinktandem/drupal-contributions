@@ -54,7 +54,7 @@ Next `rebuild` the `drupal-contributions` app:
 lando rebuild -y
 ```
 
-This will pull in the drupal source code from the `9.4.x-dev` branch, run `composer install` to get dependencies, install Drupal, and provide us with a one time login link (`uli`).
+This will pull in the drupal source code from the latest `9.x-dev` branch, run `composer install` to get dependencies, install Drupal, and provide us with a one time login link (`uli`). You can update the version in the `/config/drupal-branch.php` file.
 
 After `rebuild` completes you should see something similar to this:
 
@@ -259,10 +259,10 @@ Exclude a group of tests:
 lando phpunit --exclude-group Groupname
 ```
 
-Run a single test from the BigPipe module:
+Run a single test from the Password module:
 
 ```
-lando phpunit web/core/modules/big_pipe/tests/src/Functional/BigPipeTest.php
+lando phpunit web/core/tests/Drupal/Tests/Core/Password/PasswordHashingTest.php
 ```
 
 #### Nightwatch
@@ -287,7 +287,7 @@ lando nightwatch tests/Drupal/Nightwatch/Tests/exampleTest.js
 
 ## La Fin
 
-Once you have the `9.2.x` you can keep it and sync it periodically and `lando start`'s will keep that around. If you want to totally start fresh:
+Once you have the latest `9.x-dev` branch you can keep it and sync it periodically and `lando start`'s will keep that around. If you want to totally start fresh:
 
 ```
 # destroys drupal-contributions app and removes /web
@@ -298,4 +298,4 @@ lando destroy -y
 lando rebuild  -y
 ```
 
-*Original text from [Lando + Drupal Contributions](https://blog.lando.dev/2020/06/30/lando-drupal-contributions/) by [Geoff St. Pierre](https://twitter.com/serundeputy).*
+*Original text from [Lando + Drupal Contributions](https://lando.dev/blog/2020/06/02/lando-drupal-contributions/) by [Geoff St. Pierre](https://twitter.com/serundeputy).*

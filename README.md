@@ -259,7 +259,7 @@ Exclude a group of tests:
 lando phpunit --exclude-group Groupname
 ```
 
-Run a single test from the Password module:
+Run a single test, the Drupal core password hashing API:
 
 ```
 lando phpunit web/core/tests/Drupal/Tests/Core/Password/PasswordHashingTest.php

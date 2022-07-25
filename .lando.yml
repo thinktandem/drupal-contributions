@@ -11,6 +11,7 @@ services:
       - curl -sL https://deb.nodesource.com/setup_16.x | bash -
       - apt-get install -y nodejs
       - npm install --global yarn
+      - rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload
     run:
       - cd /app/web && composer require drush/drush && composer install
       - mkdir -p private/browsertest_output

@@ -2,7 +2,7 @@ name: drupal-contributions
 recipe: drupal9
 config:
   webroot: web
-  xdebug: 'coverage, debug'
+  xdebug: 'debug'
 services:
   appserver:
     build_as_root:

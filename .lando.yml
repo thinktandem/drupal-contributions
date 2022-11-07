@@ -23,7 +23,7 @@ services:
         BROWSERTEST_OUTPUT_BASE_URL: 'https://drupal-contributions.lndo.site'
         MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chromedriver:9515"]'
         # Nightwatch
-        DRUPAL_TEST_BASE_URL: 'https://drupal-contributions.lndo.site/'
+        DRUPAL_TEST_BASE_URL: 'http://appserver'
         DRUPAL_TEST_DB_URL: 'mysql://drupal10:drupal10@database:3306/drupal10'
         DRUPAL_TEST_WEBDRIVER_HOSTNAME: chrome
         DRUPAL_TEST_WEBDRIVER_PORT: 9515

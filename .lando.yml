@@ -12,7 +12,7 @@ services:
       - apt-get install -y nodejs
       - npm install --global yarn
     run:
-      - cd /app/web && composer require drush/drush && composer install
+      - cd /app/web && composer require drush/drush palantirnet/drupal-rector && composer install
       - mkdir -p private/browsertest_output
       - yarn install --non-interactive --cwd /app/web/core
     overrides:
@@ -43,6 +43,9 @@ tooling:
     service: appserver
     cmd:
       web/vendor/drush/drush/drush --root=/app/web --uri=https://drupal-contributions.lndo.site
+  rector:
+    service: appserver
+    cmd: web/vendor/bin/rector
   si:
     service: appserver
     description: Install Drupal

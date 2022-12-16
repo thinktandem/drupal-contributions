@@ -18,7 +18,7 @@ This repo is intended to make it easy to contribute to the [Drupal core](https:/
 
 ## Why?
 
-Setting up, testing, and writing Drupal patches can be a confusing gauntlet to the uninitiated, [thinktandem/drupal-contributions](https://github.com/thinktandem/drupal-contributions) this project automates as much of the process as possible.
+Setting up, testing, and writing Drupal patches can be a confusing gauntlet to the uninitiated, [lando/drupal-contributions](https://github.com/lando/drupal-contributions) this project automates as much of the process as possible.
 
 The spin ups should be considered completely ephemeral as on every `lando rebuild` events will be fired to tear down the current code base and rewrite the database with a fresh install.
 
@@ -40,7 +40,7 @@ Video presentation: [SFDUG - June 25 - Lando for Contrib / LLC, Corporation or S
 Let's step through how to spin up your contribution workflow. First clone down this repo:
 
 ```
-git clone git@github.com:thinktandem/drupal-contributions.git
+git clone git@github.com:lando/drupal-contributions.git
 cd drupal-contributions
 ```
 

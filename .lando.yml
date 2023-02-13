@@ -17,12 +17,11 @@ services:
       - yarn install --non-interactive --cwd /app/web/core
     overrides:
       environment:
-        SIMPLETEST_BASE_URL: "https://drupal-contributions.lndo.site/"
+        SIMPLETEST_BASE_URL: "http://drupal-contributions.lndo.site/"
         SIMPLETEST_DB: "sqlite://localhost/tmp/db.sqlite"
         BROWSERTEST_OUTPUT_DIRECTORY: '/app/web/sites/simpletest/browser_output'
-        BROWSERTEST_OUTPUT_BASE_URL: 'https://drupal-contributions.lndo.site'
-        MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chromedriver:9515"]'
-        # Nightwatch
+        BROWSERTEST_OUTPUT_BASE_URL: 'http://drupal-contributions.lndo.site'
+        MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chrome:9515"]'        # Nightwatch
         DRUPAL_TEST_BASE_URL: 'http://appserver'
         DRUPAL_TEST_DB_URL: 'mysql://drupal10:drupal10@database:3306/drupal10'
         DRUPAL_TEST_WEBDRIVER_HOSTNAME: chrome
@@ -34,14 +33,17 @@ services:
   chrome:
     type: compose
     scanner: false
+    app_mount: false
     services:
       image: drupalci/chromedriver:production
       expose:
         - "9515"
         - "4444"
+      volumes:
+        - /dev/shm:/dev/shm
       security_opt:
         - seccomp:unconfined
-      command: ["chromedriver",  "--log-path=/tmp/chromedriver.log", "--verbose", "--allowed-ips=", "--allowed-origins=*"]
+      command: ["chromedriver",  "--log-path=/tmp/chromedriver.log", "--verbose", "--allowed-ips=", "--allowed-origins=*", "--whitelisted-ips="]
 
 tooling:
   drush:

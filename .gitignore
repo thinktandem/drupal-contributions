@@ -5,3 +5,4 @@ node_modules
 *.sql
 *.sql.gz
 *.gz
++/.phpunit.result.cache

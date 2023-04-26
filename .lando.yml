@@ -5,6 +5,7 @@ config:
 
 services:
   appserver:
+    composer_version: 2-latest
     build_as_root:
       # Note that you will want to use the script for the major version of node you want to install
       # See: https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions
@@ -22,7 +23,7 @@ services:
         BROWSERTEST_OUTPUT_DIRECTORY: '/app/web/sites/simpletest/browser_output'
         BROWSERTEST_OUTPUT_BASE_URL: 'http://drupal-contributions.lndo.site'
         MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chrome:9515"]'        # Nightwatch
-        DRUPAL_TEST_BASE_URL: 'http://appserver'
+        DRUPAL_TEST_BASE_URL: 'http://drupal-contributions.lndo.site'
         DRUPAL_TEST_DB_URL: 'mysql://drupal10:drupal10@database:3306/drupal10'
         DRUPAL_TEST_WEBDRIVER_HOSTNAME: chrome
         DRUPAL_TEST_WEBDRIVER_PORT: 9515

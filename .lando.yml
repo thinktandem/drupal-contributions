@@ -5,6 +5,7 @@ config:
 
 services:
   appserver:
+    composer_version: 2-latest
     build_as_root:
       # Note that you will want to use the script for the major version of node you want to install
       # See: https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions
@@ -17,13 +18,12 @@ services:
       - yarn install --non-interactive --cwd /app/web/core
     overrides:
       environment:
-        SIMPLETEST_BASE_URL: "https://drupal-contributions.lndo.site/"
+        SIMPLETEST_BASE_URL: "http://drupal-contributions.lndo.site/"
         SIMPLETEST_DB: "sqlite://localhost/tmp/db.sqlite"
         BROWSERTEST_OUTPUT_DIRECTORY: '/app/web/sites/simpletest/browser_output'
-        BROWSERTEST_OUTPUT_BASE_URL: 'https://drupal-contributions.lndo.site'
-        MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless", "--no-sandbox"]}}, "http://chrome:9515"]'
-        # Nightwatch
-        DRUPAL_TEST_BASE_URL: 'http://appserver'
+        BROWSERTEST_OUTPUT_BASE_URL: 'http://drupal-contributions.lndo.site'
+        MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chrome:9515"]'        # Nightwatch
+        DRUPAL_TEST_BASE_URL: 'http://drupal-contributions.lndo.site'
         DRUPAL_TEST_DB_URL: 'mysql://drupal10:drupal10@database:3306/drupal10'
         DRUPAL_TEST_WEBDRIVER_HOSTNAME: chrome
         DRUPAL_TEST_WEBDRIVER_PORT: 9515
@@ -33,10 +33,18 @@ services:
         DRUPAL_NIGHTWATCH_IGNORE_DIRECTORIES: node_modules,vendor,.*,sites/*/files,sites/*/private,sites/simpletest
   chrome:
     type: compose
+    scanner: false
     app_mount: false
     services:
-      image: drupalci/webdriver-chromedriver:production
-      command: chromedriver --log-path=/tmp/chromedriver.log --allowed-origins=* --verbose --whitelisted-ips=
+      image: drupalci/chromedriver:production
+      expose:
+        - "9515"
+        - "4444"
+      volumes:
+        - /dev/shm:/dev/shm
+      security_opt:
+        - seccomp:unconfined
+      command: ["chromedriver",  "--log-path=/tmp/chromedriver.log", "--verbose", "--allowed-ips=", "--allowed-origins=*", "--whitelisted-ips="]
 
 tooling:
   drush:

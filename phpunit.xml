@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit bootstrap="/app/web/core/tests/bootstrap.php" colors="true"
-         beStrictAboutTestsThatDoNotTestAnything="true"
-         beStrictAboutOutputDuringTests="true"
-         beStrictAboutChangesToGlobalState="true"
-         printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="/app/web/core/tests/bootstrap.php" colors="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutOutputDuringTests="true" beStrictAboutChangesToGlobalState="true" printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage>
+    <include>
+      <directory>./web/core/includes</directory>
+      <directory>./web/core/lib</directory>
+      <directory>./web/core/modules</directory>
+      <directory>./web/modules</directory>
+      <directory>./web/sites</directory>
+    </include>
+    <exclude>
+      <directory>./web/core/modules/*/src/Tests</directory>
+      <directory>./web/core/modules/*/tests</directory>
+      <directory>./web/modules/*/src/Tests</directory>
+      <directory>./web/modules/*/tests</directory>
+      <directory>./web/modules/*/*/src/Tests</directory>
+      <directory>./web/modules/*/*/tests</directory>
+    </exclude>
+  </coverage>
   <php>
     <ini name="error_reporting" value="32767"/>
     <ini name="memory_limit" value="-1"/>
@@ -42,24 +54,4 @@
     </listener>
   </listeners>
   <!-- Filter for coverage reports. -->
-  <filter>
-    <whitelist>
-      <directory>./web/core/includes</directory>
-      <directory>./web/core/lib</directory>
-      <!-- Extensions can have their own test directories, so exclude those. -->
-      <directory>./web/core/modules</directory>
-      <exclude>
-        <directory>./web/core/modules/*/src/Tests</directory>
-        <directory>./web/core/modules/*/tests</directory>
-      </exclude>
-      <directory>./web/modules</directory>
-      <exclude>
-        <directory>./web/modules/*/src/Tests</directory>
-        <directory>./web/modules/*/tests</directory>
-        <directory>./web/modules/*/*/src/Tests</directory>
-        <directory>./web/modules/*/*/tests</directory>
-      </exclude>
-      <directory>./web/sites</directory>
-     </whitelist>
-  </filter>
 </phpunit>

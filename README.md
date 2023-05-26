@@ -18,7 +18,7 @@ This repo is intended to make it easy to contribute to the [Drupal core](https:/
 
 ## Why?
 
-Setting up, testing, and writing Drupal patches can be a confusing gauntlet to the uninitiated, [thinktandem/drupal-contributions](https://github.com/thinktandem/drupal-contributions) this project automates as much of the process as possible.
+Setting up, testing, and writing Drupal patches can be a confusing gauntlet to the uninitiated, [lando/drupal-contributions](https://github.com/lando/drupal-contributions) this project automates as much of the process as possible.
 
 The spin ups should be considered completely ephemeral as on every `lando rebuild` events will be fired to tear down the current code base and rewrite the database with a fresh install.
 
@@ -40,7 +40,7 @@ Video presentation: [SFDUG - June 25 - Lando for Contrib / LLC, Corporation or S
 Let's step through how to spin up your contribution workflow. First clone down this repo:
 
 ```
-git clone git@github.com:thinktandem/drupal-contributions.git
+git clone git@github.com:lando/drupal-contributions.git
 cd drupal-contributions
 ```
 
@@ -54,7 +54,7 @@ Next `rebuild` the `drupal-contributions` app:
 lando rebuild -y
 ```
 
-This will pull in the drupal source code from the `9.5.x-dev` branch, run `composer install` to get dependencies, install Drupal, and provide us with a one time login link (`uli`).
+This will pull in the drupal source code from the latest `9.x-dev` branch, run `composer install` to get dependencies, install Drupal, and provide us with a one time login link (`uli`). You can update the version in the `/config/drupal-branch.php` file.
 
 After `rebuild` completes you should see something similar to this:
 
@@ -259,10 +259,10 @@ Exclude a group of tests:
 lando phpunit --exclude-group Groupname
 ```
 
-Run a single test from the BigPipe module:
+Run a single test, the Drupal core password hashing API:
 
 ```
-lando phpunit web/core/modules/big_pipe/tests/src/Functional/BigPipeTest.php
+lando phpunit web/core/tests/Drupal/Tests/Core/Password/PasswordHashingTest.php
 ```
 
 #### Nightwatch
@@ -287,7 +287,7 @@ lando nightwatch tests/Drupal/Nightwatch/Tests/exampleTest.js
 
 ## La Fin
 
-Once you have the `9.5.x` you can keep it and sync it periodically and `lando start`'s will keep that around. If you want to totally start fresh:
+Once you have the latest `9.x-dev` branch you can keep it and sync it periodically and `lando start`'s will keep that around. If you want to totally start fresh:
 
 ```
 # destroys drupal-contributions app and removes /web

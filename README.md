@@ -139,6 +139,50 @@ lando revert geofield-add-GeometryType-storaging-2770313-26.patch
 
 This way we can `apply` and `revert` as many times as we want/need to during our testing.
 
+## Using Issue Forks
+
+Issue forks are gitlab repositories with a branch for collaborating on a patch. Patching instructions above refer to using a patch created from this branch, but this method sets you up for making additional changes to contribute.
+
+Find the repository URL and branch names by clicking "Show commands" on the issue fork.
+
+#### Core issue
+
+Clone the issue fork to the web directory, check out the branch using -f to reset the directory files.
+
+```
+cd web
+git init
+git remote add drupal-3347672 git@git.drupal.org:issue/drupal-3347672.git
+git fetch drupal-3347672
+git checkout -f 3347672-create-new-sdc
+lando composer install
+```
+
+#### Extension issue
+
+Clone the issue fork to the extension directory.
+
+```
+cd web/modules/contrib
+mkdir menu_select
+git init
+git remote add menu_select-3368085 git@git.drupal.org:issue/menu_select-3368085.git
+git fetch menu_select-3368085
+git checkout -f fetch menu_select-3368085
+```
+
+If you have added the module via composer, the directory will already be there. Use git init to create a bare repo before adding the remote or else it will be added to the wrong one. If the dev version was installed, a repository will already be there and you can skip the init.
+
+### Contributing with issue forks
+
+You can push your changes to the issue fork branch, where they will be shared with other developers. You may need to click on the "get push access" button to get permissions.
+
+Changes can be reviewed in gitlab, where developers can mark issues in the code for review. These issues will be flagged in the drupal.org issue to help clarify remaining fixes on a patch.
+
+Since anyone can push to an issue fork branch, it can be helpful to create a patch to upload. For example, when a bug is fixed, but the update is held back by lack of tests, developers may want to apply a known working patch without additional changes that may be in the fork.
+
+More about issue forks: https://www.drupal.org/docs/develop/git/using-gitlab-to-contribute-to-drupal/introduction
+
 ## Creating a Patch
 
 #### Core Patch Example

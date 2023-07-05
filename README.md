@@ -1,3 +1,5 @@
+![Looking For Maintainer](https://img.shields.io/badge/maintenance-looking--for--maintainer-orange.svg)
+
 # Lando + Drupal Contributions
 
 This repo is intended to make it easy to contribute to the [Drupal core](https://drupal.org/project/drupal) and contrib projects.
